@@ -1,7 +1,12 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [
+# urlpatterns = [
 
-    path('',views.contact,name='contact'),
+#     path('',views.contact,name='contact'),
+# ]
+
+urlpatterns = [
+    path("", views.contact, name="contact"),
+    path("contacts/", views.contacts, name="contacts"),
 ]
