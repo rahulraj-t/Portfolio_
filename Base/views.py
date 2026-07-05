@@ -3,6 +3,9 @@ from django.contrib import messages
 from Base import models
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def home(request):
     return render(request, 'home.html')
@@ -127,3 +130,57 @@ def contacts(request):
     html += "</body></html>"
 
     return HttpResponse(html)
+
+
+@csrf_exempt
+def contact_api(request):
+
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request only"}, status=405)
+
+    try:
+        data = json.loads(request.body)
+
+        name = data.get("name", "").strip()
+        email = data.get("email", "").strip()
+        number = data.get("number", "").strip()
+        service = data.get("service", "").strip()
+        content = data.get("content", "").strip()
+
+        if not (2 <= len(name) <= 30):
+            return JsonResponse(
+                {"success": False, "message": "Invalid name"},
+                status=400
+            )
+
+        if not (2 <= len(email) <= 50):
+            return JsonResponse(
+                {"success": False, "message": "Invalid email"},
+                status=400
+            )
+
+        if number and not (10 <= len(number) <= 13):
+            return JsonResponse(
+                {"success": False, "message": "Invalid phone number"},
+                status=400
+            )
+
+        from Base.models import Contact
+
+        Contact.objects.create(
+            name=name,
+            email=email,
+            number=number,
+            content=content,
+        )
+
+        return JsonResponse({
+            "success": True,
+            "message": "Message submitted successfully!"
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            "success": False,
+            "message": str(e)
+        }, status=500)

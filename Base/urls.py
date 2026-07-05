@@ -7,6 +7,6 @@ from . import views
 # ]
 
 urlpatterns = [
-    path("", views.contact, name="contact"),
+    path("api/contact/", views.contact_api, name="contact_api"),
     path("contacts/", views.contacts, name="contacts"),
 ]
