@@ -1,18 +1,11 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = 'django-insecure-nc=&&%kig^71!fc#aqu6a!%zryzptv4hbgw_jt(q%q*k@nxasy'
 
-
-
-load_dotenv(BASE_DIR / ".env")
-
-# SECRET_KEY = 'django-insecure-nc=&&%kig^71!fc#aqu6a!%zryzptv4hbgw_jt(q%q*k@nxasy'
-SECRET_KEY = os.getenv("SECRET_KEY")
-
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -93,8 +86,8 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = "rahulrajt04@gmail.com"
+EMAIL_HOST_PASSWORD = "hplk lkuk kyia yhgk"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
