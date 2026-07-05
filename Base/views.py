@@ -47,26 +47,26 @@ def contact(request):
         # ins.service = service
 
         ins.save()
-        try:
-            send_mail(
-                subject="New Portfolio Contact Form Submission",
-                message=f"""
-        A new contact form has been submitted.
+        # try:
+        #     send_mail(
+        #         subject="New Portfolio Contact Form Submission",
+        #         message=f"""
+        # A new contact form has been submitted.
 
-        Name: {name}
-        Email: {email}
-        Phone: {number if number else "Not Provided"}
-        Service: {service}
+        # Name: {name}
+        # Email: {email}
+        # Phone: {number if number else "Not Provided"}
+        # Service: {service}
 
-        Message:
-        {content}
-        """,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[settings.EMAIL_HOST_USER],
-                fail_silently=False,
-            )
-        except Exception as e:
-            print("Email sending failed:", e)
+        # Message:
+        # {content}
+        # """,
+        #         from_email=settings.EMAIL_HOST_USER,
+        #         recipient_list=[settings.EMAIL_HOST_USER],
+        #         fail_silently=False,
+        #     )
+        # except Exception as e:
+        #     print("Email sending failed:", e)
 
         messages.success(request, "Thank you for contacting me! Your message has been saved.")
         print("Data has been saved to database.")
